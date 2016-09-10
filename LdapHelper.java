@@ -465,45 +465,5 @@ public class LdapHelper {
 	
 	
 
-	public static void main(String[] args) {
-		LdapHelper ldapHelper = new LdapHelper();
-//		ldapHelper.getCtx();
-		try {
-//			boolean issuccess= ldapHelper.authenticate("m084806","chenshubin");
-//			System.out.println(issuccess);
-//			Map<String,String> beanMap = ldapHelper.getUser("m111111");
-//			beanMap = ldapHelper.getUser("m111112");
-//			beanMap = ldapHelper.getUser("m111113");
-//			beanMap = ldapHelper.getUser("m111114");
-//			Map<String,String> beanMap = new HashMap<String,String>();
-//			beanMap.put("uid", "m111113");
-//			beanMap.put("cn", "chen shu bin 3");
-//			beanMap.put("userPassword", "chenshubin3");
-//			beanMap.put("sn", "chen shu bin 3");
-//			
-//			ldapHelper.addUser(beanMap);
-//			ldapHelper.updatePwdLdapWithCheck("m084806", "chenshubin1");
-//			ldapHelper.testSearch();
-//			ldapHelper.authenticate("m111112","chen shu bin 3");
-//			boolean isSuccess = ldapHelper.deleteUser("m111114","chen shu bin 4");
-//			System.out.println(isSuccess);
-//			
-//			Map<String,String> beanMap = ldapHelper.getUser("m111113");
-//			boolean issuccess= ldapHelper.authenticate("m111113","chenshubin3");
-//			System.out.println(issuccess);
-			ldapHelper.updatePwdLdapWithCheck("m111113", "chenshubin5");
-//			Map<String,String> beanMap  = new HashMap();
-//			System.out.println(null == beanMap);
-			
-			
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-
 }
 
