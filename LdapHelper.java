@@ -26,8 +26,8 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
 /**
- * LdapÁ¬½ÓÊôĞÔÀà°üÀ¨²éÑ¯£¬ÔöÉ¾¸Ä
- * ²Î¿¼http://bbs.csdn.net/topics/390493306
+ * Ldapè¿æ¥å±æ€§ç±»åŒ…æ‹¬æŸ¥è¯¢ï¼Œå¢åˆ æ”¹
+ * å‚è€ƒhttp://bbs.csdn.net/topics/390493306
  * @author M084806
  *
  */
@@ -37,22 +37,22 @@ public class LdapHelper {
 
 
 	/**
-	 * »ñÈ¡ldap·şÎñÆ÷Á¬½Ó
+	 * è·å–ldapæœåŠ¡å™¨è¿æ¥
 	 * @return
 	 */
 	@SuppressWarnings(value = "unchecked")
 	public  DirContext getCtx() {
 		DirContext ctx = null;
-		//Èç¹ûÒÑ¾­ÓĞÁ¬½ÓµÄÖ±½Ó·µ»Ø
+		//å¦‚æœå·²ç»æœ‰è¿æ¥çš„ç›´æ¥è¿”å›
 //		if(null != ctx){
 //			return ctx;
 //		}
-		//Á¬½Ó²âÊÔ·şÎñÆ÷£¬ÕâÀïÇëĞ´³ÉÅäÖÃĞÎÊ½µÄ
-		String ldapIP = "10.10.150.252";
+		//è¿æ¥æµ‹è¯•æœåŠ¡å™¨ï¼Œè¿™é‡Œè¯·å†™æˆé…ç½®å½¢å¼çš„
+		String ldapIP = "aaaaa";
 		String ldapPort = "389";
-		String account = "cn=syncuser,cn=config"; //binddn
-		String password = "PWD4sync"; //bindpwd
-		String root = "dc=sae,dc=com,dc=hk"; // root    ou=people,dc=sae,dc=com,dc=hk
+		String account = "cn=saa,cn=coaaag"; //binddn
+		String password = "aaa"; //bindpwd
+		String root = "dc=aa,dc=aa,dc=aa"; // root    ou=people,dc=sae,dc=com,dc=hk
 		
 		
 				
@@ -63,21 +63,21 @@ public class LdapHelper {
 		env.put(Context.SECURITY_PRINCIPAL, account );
 		env.put(Context.SECURITY_CREDENTIALS, password);
 		try {
-		// Á´½Óldap
+		// é“¾æ¥ldap
 			ctx = new InitialDirContext(env);
-			System.out.println("ÈÏÖ¤³É¹¦");
+			System.out.println("è®¤è¯æˆåŠŸ");
 		} catch (javax.naming.AuthenticationException e) {
 			e.printStackTrace();
-			System.out.println("ÈÏÖ¤Ê§°Ü");
+			System.out.println("è®¤è¯å¤±è´¥");
 		} catch (Exception e) {
-			System.out.println("ÈÏÖ¤³ö´í£º");
+			System.out.println("è®¤è¯å‡ºé”™ï¼š");
 		e.printStackTrace();
 		}
 		return ctx;
 	}
 
 	/**
-	 * ¹Ø±ÕldapµÄÁ¬½Ó
+	 * å…³é—­ldapçš„è¿æ¥
 	 */
 	public  void closeCtx(DirContext dirCtx){
 		try {
@@ -93,7 +93,7 @@ public class LdapHelper {
 	}
 	
 	/**
-	 * ¶Ô±Èldap·şÎñÆ÷µÄÃÜÂëºÍ´«½øÀ´µÄÃÜÂëÊÇ·ñÒ»ÖÂ
+	 * å¯¹æ¯”ldapæœåŠ¡å™¨çš„å¯†ç å’Œä¼ è¿›æ¥çš„å¯†ç æ˜¯å¦ä¸€è‡´
 	 * @param ldappw
 	 * @param inputpw
 	 * @return
@@ -102,22 +102,22 @@ public class LdapHelper {
 	@SuppressWarnings(value = "unchecked")
 	public  boolean verifySHA(String ldappw, String inputpw)	throws NoSuchAlgorithmException {
 	
-		//MessageDigest Ìá¹©ÁËÏûÏ¢ÕªÒªËã·¨£¬Èç MD5 »ò SHA£¬µÄ¹¦ÄÜ£¬ÕâÀïLDAPÊ¹ÓÃµÄÊÇSHA-1
+		//MessageDigest æä¾›äº†æ¶ˆæ¯æ‘˜è¦ç®—æ³•ï¼Œå¦‚ MD5 æˆ– SHAï¼Œçš„åŠŸèƒ½ï¼Œè¿™é‡ŒLDAPä½¿ç”¨çš„æ˜¯SHA-1
 		MessageDigest md = MessageDigest.getInstance("SHA-1");
 		
-		//È¡³ö¼ÓÃÜ×Ö·û
+		//å–å‡ºåŠ å¯†å­—ç¬¦
 		if (ldappw.startsWith("{SSHA}")) {
 			ldappw = ldappw.substring(6);
 		} else if (ldappw.startsWith("{SHA}")) {
 			ldappw = ldappw.substring(5);
 		}
 		
-		//½âÂëBASE64
+		//è§£ç BASE64
 		byte[] ldappwbyte = Base64.decode(ldappw);
 		byte[] shacode;
 		byte[] salt;
 		
-		//Ç°20Î»ÊÇSHA-1¼ÓÃÜ¶Î£¬20Î»ºóÊÇ×î³õ¼ÓÃÜÊ±µÄËæ»úÃ÷ÎÄ
+		//å‰20ä½æ˜¯SHA-1åŠ å¯†æ®µï¼Œ20ä½åæ˜¯æœ€åˆåŠ å¯†æ—¶çš„éšæœºæ˜æ–‡
 		if (ldappwbyte.length <= 20) {
 			shacode = ldappwbyte;
 			salt = new byte[0];
@@ -128,26 +128,26 @@ public class LdapHelper {
 			System.arraycopy(ldappwbyte, 20, salt, 0, salt.length);
 		}
 		
-		//°ÑÓÃ»§ÊäÈëµÄÃÜÂëÌí¼Óµ½ÕªÒª¼ÆËãĞÅÏ¢
+		//æŠŠç”¨æˆ·è¾“å…¥çš„å¯†ç æ·»åŠ åˆ°æ‘˜è¦è®¡ç®—ä¿¡æ¯
 		md.update(inputpw.getBytes());
-		// °ÑËæ»úÃ÷ÎÄÌí¼Óµ½ÕªÒª¼ÆËãĞÅÏ¢
+		// æŠŠéšæœºæ˜æ–‡æ·»åŠ åˆ°æ‘˜è¦è®¡ç®—ä¿¡æ¯
 		md.update(salt);
 		
-		//°´SSHA°Ñµ±Ç°ÓÃ»§ÃÜÂë½øĞĞ¼ÆËã
+		//æŒ‰SSHAæŠŠå½“å‰ç”¨æˆ·å¯†ç è¿›è¡Œè®¡ç®—
 		byte[] inputpwbyte = md.digest();
 		
-		//·µ»ØĞ£Ñé½á¹û
+		//è¿”å›æ ¡éªŒç»“æœ
 		return MessageDigest.isEqual(shacode, inputpwbyte);
 	}
 	
 	
 	/**
-	 * ÑéÖ¤ÕË»§µÇÂ¼ÃÜÂëÕıÈ·Óë·ñ£¬
+	 * éªŒè¯è´¦æˆ·ç™»å½•å¯†ç æ­£ç¡®ä¸å¦ï¼Œ
 	 * @param usr
 	 * @param pwd
 	 * @return
 	 */
-//ÒÑ¾­ÖØ¹¹
+//å·²ç»é‡æ„
 //	public  boolean authenticate(String uid, String pwd) {
 //		 boolean success = false;
 //		 DirContext ctx = null;
@@ -156,25 +156,25 @@ public class LdapHelper {
 //			 SearchControls constraints = new SearchControls();
 //			 constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
 ////			  constraints.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-//			// ²éÑ¯Ö¸¶¨ÓÃ»§
+//			// æŸ¥è¯¢æŒ‡å®šç”¨æˆ·
 //			 NamingEnumeration en = ctx.search("", "uid=" + uid, constraints); 
-//			//Èç¹ûÓĞ·µ»ØÊı¾İÔò½øÈëÑ­»·£¬»ñÈ¡ÓÃ»§ÃÜÂë£¬ÔÙ±àÒë¼ÓÃÜºó¶Ô±ÈÊÇ·ñÒ»Ñù
+//			//å¦‚æœæœ‰è¿”å›æ•°æ®åˆ™è¿›å…¥å¾ªç¯ï¼Œè·å–ç”¨æˆ·å¯†ç ï¼Œå†ç¼–è¯‘åŠ å¯†åå¯¹æ¯”æ˜¯å¦ä¸€æ ·
 //			 while (en != null && en.hasMoreElements()) {
 //				 Object obj = en.nextElement();
 //				 if (obj instanceof SearchResult) {
 //					 SearchResult si = (SearchResult) obj;
-//					 //»ñÈ¡nameÊôĞÔ
+//					 //è·å–nameå±æ€§
 //					 System.out.println("name: " + si.getName());
 //					 Attributes attrs = si.getAttributes();
 //					 if (attrs == null) {
 //						 System.out.println("No attributes");
 //					 } else {
-//						 //»ñÈ¡·şÎñÆ÷ÉÏµÄÃÜÂë
+//						 //è·å–æœåŠ¡å™¨ä¸Šçš„å¯†ç 
 //						 Attribute attr = attrs.get("userPassword");
 //						 Object o = attr.get();
 //						 byte[] s = (byte[]) o;
 //						 String pwd2 = new String(s);
-//						 //ÑéÖ¤ÃÜÂëÊÇ·ñÕıÈ·
+//						 //éªŒè¯å¯†ç æ˜¯å¦æ­£ç¡®
 //						 success = this.verifySHA(pwd2, pwd);
 //						 return success;
 //					 }
@@ -183,7 +183,7 @@ public class LdapHelper {
 //				 }
 //				 System.out.println("===================");
 //			 }
-//			 //¹Ø±ÕÁ¬½Ó
+//			 //å…³é—­è¿æ¥
 //			 	this.closeCtx(ctx);
 //		 } catch (NoSuchAlgorithmException ex) {
 //			this.closeCtx(ctx);
@@ -196,14 +196,14 @@ public class LdapHelper {
 //		 }
 	
 	/**
-	 * ÑéÖ¤ÕË»§µÇÂ¼ÃÜÂëÕıÈ·Óë·ñ£¬
+	 * éªŒè¯è´¦æˆ·ç™»å½•å¯†ç æ­£ç¡®ä¸å¦ï¼Œ
 	 * @param usr
 	 * @param pwd
 	 * @return
 	 */
 	public  boolean authenticate(String uid, String pwd) {
 		boolean success = false;
-		//»ñÈ¡ladpÓÃ»§µÄÊı¾İ 
+		//è·å–ladpç”¨æˆ·çš„æ•°æ® 
 		Map<String,String> map = this.getUser(uid);
 
 		String pwd2 = map.get("userPassword");
@@ -212,7 +212,7 @@ public class LdapHelper {
 		}
 		
 		
-		 //ÑéÖ¤ÃÜÂëÊÇ·ñÕıÈ·
+		 //éªŒè¯å¯†ç æ˜¯å¦æ­£ç¡®
 		try {
 			success = this.verifySHA(pwd2, pwd);
 		} catch (Exception e) {
@@ -224,12 +224,12 @@ public class LdapHelper {
 	
 	
 	/**
-	 * Ö±½ÓÊ¹ÓÃuid¸üĞÂÊôĞÔ
+	 * ç›´æ¥ä½¿ç”¨uidæ›´æ–°å±æ€§
 	 * @param uid
 	 * @param pwd
 	 * @return
 	 */
-//  È¨ÏŞ²»×ã£¬ÎŞ·¨²âÊÔ×¢ÊÍµô
+//  æƒé™ä¸è¶³ï¼Œæ— æ³•æµ‹è¯•æ³¨é‡Šæ‰
 	public boolean updatePwdLdapImmediately(String uid,String attr, String value) {
 		 boolean success = false;
 		 DirContext ctx = null;
@@ -253,14 +253,14 @@ public class LdapHelper {
 	
 	
 	/**
-	 * ²éÑ¯ÊÇ·ñÓĞ¸Ã¿Í»§£¬È»ºó¸üĞÂÃÜÂë         
+	 * æŸ¥è¯¢æ˜¯å¦æœ‰è¯¥å®¢æˆ·ï¼Œç„¶åæ›´æ–°å¯†ç          
 	 * @param uid
 	 * @param pwd
 	 * @return
 	 */
-//  È¨ÏŞ²»×ã£¬×¢ÊÍµô
+//  æƒé™ä¸è¶³ï¼Œæ³¨é‡Šæ‰
 	public boolean updatePwdLdapWithCheck(String uid, String pwd) {
-		//»ñÈ¡ladpÓÃ»§µÄÊı¾İ 
+		//è·å–ladpç”¨æˆ·çš„æ•°æ® 
 		Map<String,String> map = this.getUser(uid);
 		 if(null == map){
 			 return false;
@@ -273,7 +273,7 @@ public class LdapHelper {
 	
 	
 	/**
-	 * Í¨¹ıuid»ñÈ¡¿Í»§
+	 * é€šè¿‡uidè·å–å®¢æˆ·
 	 * @param usr
 	 * @param pwd
 	 * @return
@@ -286,14 +286,14 @@ public class LdapHelper {
 			 SearchControls constraints = new SearchControls();
 			 constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
 //			  constraints.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-			// ²éÑ¯Ö¸¶¨ÓÃ»§
+			// æŸ¥è¯¢æŒ‡å®šç”¨æˆ·
 			 NamingEnumeration<SearchResult> en = ctx.search("", "uid=" + uid, constraints); 
-		     // Êä³ö²éµ½µÄÊı¾İ  
+		     // è¾“å‡ºæŸ¥åˆ°çš„æ•°æ®  
 		     while (null != en && en.hasMore()) {  
 		            SearchResult result = en.next();  
 		            NamingEnumeration<? extends Attribute> attrs = result.getAttributes().getAll();  
 		            
-		            //»ñÈ¡¶ÔÏóÊôĞÔ
+		            //è·å–å¯¹è±¡å±æ€§
 		            while (attrs.hasMore()) {  
 		                Attribute attr = attrs.next();  
 		                if(attr.get() == null){
@@ -316,7 +316,7 @@ public class LdapHelper {
 		    	                 }  
 		     					System.out.println("============"); 
 			 
-			 //¹Ø±ÕÁ¬½Ó
+			 //å…³é—­è¿æ¥
 		     this.closeCtx(ctx);
 			 return beanMap;
 			 
@@ -331,7 +331,7 @@ public class LdapHelper {
 	
 	
 	/**
-	 * Ôö¼ÓÓÃ»§
+	 * å¢åŠ ç”¨æˆ·
 	 * @param usr
 	 * @param pwd
 	 * @return
@@ -353,7 +353,7 @@ public class LdapHelper {
 			 objclassSet.add("organizationalPerson");
 			 objclassSet.add("inetOrgPerson");
 			 attrsbu.put(objclassSet);
-			 //Ñ­»·½²beanMap·Å½øÈ¥
+			 //å¾ªç¯è®²beanMapæ”¾è¿›å»
 			 for (String key : beanMap.keySet()) {  
 				 attrsbu.put(key,beanMap.get(key));
              }  
@@ -369,7 +369,7 @@ public class LdapHelper {
 	
 	
 	/**
-	 * Í¨¹ıcnÉ¾³ıÓÃ»§£¬Çë½÷É÷Ê¹ÓÃ
+	 * é€šè¿‡cnåˆ é™¤ç”¨æˆ·ï¼Œè¯·è°¨æ…ä½¿ç”¨
 	 * @param uid
 	 * @return
 	 */
@@ -394,50 +394,50 @@ public class LdapHelper {
 	
 	
 	/**
-	 * ²éÑ¯ËùÓĞÊôĞÔºÍ·½·¨Ó¦ÓÃ
-	 * ²Î¿¼http://www.jb51.net/article/41447.htm
+	 * æŸ¥è¯¢æ‰€æœ‰å±æ€§å’Œæ–¹æ³•åº”ç”¨
+	 * å‚è€ƒhttp://www.jb51.net/article/41447.htm
 	 * @throws Exception
 	 */
     public void testSearch() throws Exception {  
     	DirContext ctx = this.getCtx();
-        // ÉèÖÃ¹ıÂËÌõ¼ş  
-        String uid = "m084753";  //×ÓÈ¨
-//    	 String uid = "m084750";	//·¢Ö¦
+        // è®¾ç½®è¿‡æ»¤æ¡ä»¶  
+        String uid = "m084753";  //å­æƒ
+//    	 String uid = "m084750";	//å‘æ
 //    	 String uid = "m084806";
 //    	 String uid = "m111111";
     	 
-        //ÉèÖÃÌõ¼ş²éÑ¯
+        //è®¾ç½®æ¡ä»¶æŸ¥è¯¢
 //        String filter = "(&(objectClass=top)(objectClass=organizationalPerson)(uid=" + uid + "))"; 
         String filter = "objectClass=*";
        
-        // ÏŞÖÆÒª²éÑ¯µÄ×Ö¶ÎÄÚÈİ  
+        // é™åˆ¶è¦æŸ¥è¯¢çš„å­—æ®µå†…å®¹  
         String[] attrPersonArray = { "uid", "userPassword", "displayName", 
         		"cn", "sn","email", "mail", "description","city","country","dept","location","ext","title","department","phone" };  
         SearchControls searchControls = new SearchControls();  
         searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);  
         
 
-        // ¶¨ÖÆ·µ»ØµÄĞÅÏ¢
-        // ÉèÖÃ½«±»·µ»ØµÄAttribute  
+        // å®šåˆ¶è¿”å›çš„ä¿¡æ¯
+        // è®¾ç½®å°†è¢«è¿”å›çš„Attribute  
         //searchControls.setReturningAttributes(attrPersonArray);  
         
-        //²éÑ¯ËùÓĞµÄĞÅÏ¢
+        //æŸ¥è¯¢æ‰€æœ‰çš„ä¿¡æ¯
         searchControls.setReturningAttributes(null);  
         
                 
-        // Èı¸ö²ÎÊı·Ö±ğÎª£º  
-        // ÉÏÏÂÎÄ£»     Îª¿Õ±íÊ¾ËÑË÷È«²¿
-        // ÒªËÑË÷µÄÊôĞÔ£¬     Èç¹ûÎªobjectClass=*£¬Ôò·µ»ØÄ¿±êÉÏÏÂÎÄÖĞµÄËùÓĞ¶ÔÏó£»  
-        // ¿ØÖÆËÑË÷µÄËÑË÷¿Ø¼ş£¬Èç¹û  searchControls.setReturningAttributes(null)£¬ÔòÊ¹ÓÃÄ¬ÈÏµÄËÑË÷¿Ø¼ş  
+        // ä¸‰ä¸ªå‚æ•°åˆ†åˆ«ä¸ºï¼š  
+        // ä¸Šä¸‹æ–‡ï¼›     ä¸ºç©ºè¡¨ç¤ºæœç´¢å…¨éƒ¨
+        // è¦æœç´¢çš„å±æ€§ï¼Œ     å¦‚æœä¸ºobjectClass=*ï¼Œåˆ™è¿”å›ç›®æ ‡ä¸Šä¸‹æ–‡ä¸­çš„æ‰€æœ‰å¯¹è±¡ï¼›  
+        // æ§åˆ¶æœç´¢çš„æœç´¢æ§ä»¶ï¼Œå¦‚æœ  searchControls.setReturningAttributes(null)ï¼Œåˆ™ä½¿ç”¨é»˜è®¤çš„æœç´¢æ§ä»¶  
         NamingEnumeration<SearchResult> answer = ctx.search("", filter.toString(), searchControls);
         int i=0;
         HashMap<String,Integer> set = new HashMap<String,Integer>();
         
-        // Êä³ö²éµ½µÄÊı¾İ  
+        // è¾“å‡ºæŸ¥åˆ°çš„æ•°æ®  
         while (null != answer && answer.hasMore()) {  
             SearchResult result = answer.next();  
             NamingEnumeration<? extends Attribute> attrs = result.getAttributes().getAll();  
-            //»ñÈ¡¶ÔÏóÊôĞÔ
+            //è·å–å¯¹è±¡å±æ€§
             while (attrs.hasMore()) {  
                 Attribute attr = attrs.next();  
                // System.out.println(attr.getID() + "=" + attr.get());  
